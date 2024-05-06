@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QApplication, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QSize
 
@@ -21,8 +21,8 @@ class MainWin(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
-        self.resize(600,400)
-        #self.setFixedSize(self.width(), self.height())
+        self.resize(600, 400)
+        # self.setFixedSize(self.width(), self.height())
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         wid = QWidget()
         wid.setStyleSheet('''background-color: rgb(254, 237, 210)''')
