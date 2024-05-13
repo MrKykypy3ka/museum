@@ -65,3 +65,17 @@ class Data:
             self.data = self.cur.execute(request, (kwargs['text'],)).fetchall()
         except sqlite3.Error as e:
             print(e)
+
+    def get_all_tests(self, **kwargs):
+        try:
+            request = """SELECT id_test, id_type, text FROM Tests"""
+            self.data = self.cur.execute(request).fetchall()
+        except sqlite3.Error as e:
+            print(e)
+
+    def get_all_games(self, **kwargs):
+        try:
+            request = """SELECT id_game, id_type, picture FROM Games"""
+            self.data = self.cur.execute(request).fetchall()
+        except sqlite3.Error as e:
+            print(e)

@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel, QGroupBox, QFileDialog, QListWidget
 from PyQt5.QtGui import QIcon, QPixmap, QImage
-from PyQt5.QtCore import QSize, Qt, pyqtSlot
+from PyQt5.QtCore import QSize, Qt, pyqtSlot, pyqtSignal
 from classes.new_widgets import ScaledPixmapLabel
 from database.scripts.db import Data
 from app.createTaskWin import TaskWin
@@ -18,6 +18,8 @@ def get_style_button(widget):
 
 
 class TestWin(QWidget):
+    close_signal = pyqtSignal(bool)
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.db = Data('database/Museum.db')
@@ -59,6 +61,7 @@ class TestWin(QWidget):
         self.setLayout(main_l)
         self.add_answer_btn.clicked.connect(self.showCreateAnswerWin)
         self.write_test_btn.clicked.connect(self.test_formation)
+        self.close_signal.connect(self.close)
 
     def showCreateAnswerWin(self):
         self.win_ct = TaskWin()
@@ -89,3 +92,7 @@ class TestWin(QWidget):
         elif not len(self.tasks):
             self.tasks_list.setStyleSheet('''border: 1px solid red;''')
             self.title.setStyleSheet('''''')
+
+    def closeEvent(self, event):
+        self.close_signal.emit(True)
+        event.accept()
