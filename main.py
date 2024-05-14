@@ -5,6 +5,7 @@ import sys
 
 def main():
     app = QApplication([])
+    app.setStyleSheet("\n".join(open('styles/style.css').readlines()))
     win = MainWin()
     win.show()
     sys.exit(app.exec_())

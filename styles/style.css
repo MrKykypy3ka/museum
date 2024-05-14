@@ -1,0 +1,18 @@
+QPushButton {
+        border-radius : 0;
+        border: 1px solid #cc6;
+        background-color: #333;
+        color: #cc6;
+        font-family: MontserratBolt;
+        font-size: 24pt;
+        width: 7em;
+        height: 1em;
+        text-align: left;}
+
+QWidget {
+        background-image : url(resources/background.png);}
+
+QLineEdit, QListWidget, QLabel {
+        background-image: url();
+        background-color: #f5f5e6;}
+
