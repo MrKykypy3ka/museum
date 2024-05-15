@@ -1,6 +1,6 @@
-from PyQt5.QtCore import Qt, QMimeData
-from PyQt5.QtGui import QDrag, QPainter
-from PyQt5.QtWidgets import QVBoxLayout, QLabel, QGroupBox, QApplication
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPainter
+from PyQt5.QtWidgets import QLabel
 
 
 class ScaledPixmapLabel(QLabel):

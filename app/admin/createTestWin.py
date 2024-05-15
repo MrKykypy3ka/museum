@@ -1,23 +1,11 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel, QGroupBox, QFileDialog, QListWidget
-from PyQt5.QtGui import QIcon, QPixmap, QImage
-from PyQt5.QtCore import QSize, Qt, pyqtSlot, pyqtSignal
-from classes.new_widgets import ScaledPixmapLabel
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel, QListWidget
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import pyqtSignal
 from database.scripts.db import Data
-from app.createTaskWin import TaskWin
+from app.admin.createTaskWin import CreateTaskWin
 
 
-def get_style_button(widget):
-    widget.setStyleSheet('''border-radius : 0;
-                            border: 0.5px solid black;
-                            background-color: #333;
-                            color: #fc9;
-                            font-family: Montserrat;
-                            font-size: 24pt;
-                            width: 7em;
-                            height: 1em;''')
-
-
-class TestWin(QWidget):
+class CreateTestWin(QWidget):
     close_signal = pyqtSignal(bool)
 
     def __init__(self, parent=None):
@@ -64,7 +52,7 @@ class TestWin(QWidget):
         self.close_signal.connect(self.close)
 
     def showCreateAnswerWin(self):
-        self.win_ct = TaskWin()
+        self.win_ct = CreateTaskWin()
         self.win_ct.data_signal.connect(self.getData)
         self.win_ct.show()
 

@@ -1,21 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel, QGroupBox, QFileDialog, QCheckBox
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QGroupBox, QFileDialog, QCheckBox
 from PyQt5.QtGui import QIcon, QPixmap, QImage
-from PyQt5.QtCore import QSize, Qt, pyqtSignal
+from PyQt5.QtCore import Qt, pyqtSignal
 from classes.new_widgets import ScaledPixmapLabel
 
 
-def get_style_button(widget):
-    widget.setStyleSheet('''border-radius : 0;
-                            border: 0.5px solid black;
-                            background-color: #333;
-                            color: #fc9;
-                            font-family: Montserrat;
-                            font-size: 24pt;
-                            width: 7em;
-                            height: 1em;''')
-
-
-class TaskWin(QWidget):
+class CreateTaskWin(QWidget):
     data_signal = pyqtSignal(list)
 
     def __init__(self, parent=None):
