@@ -54,7 +54,6 @@ class TaskWin(QWidget):
         h_l2.addWidget(self.add_image, 2)
         h_l2.addStretch(5)
         main_l.addLayout(h_l2)
-        main_l.addWidget(self.add_image)
         self.vg_l = QVBoxLayout()
         for _ in range(1, 3):
             self.add_answer()
@@ -67,7 +66,6 @@ class TaskWin(QWidget):
         h_l4.addStretch(5)
         h_l4.addWidget(self.add_task, 2)
         main_l.addLayout(h_l4)
-        main_l.addWidget(self.add_task)
         main_l.addStretch()
         self.setLayout(main_l)
         self.add_answer_btn.clicked.connect(self.add_answer)

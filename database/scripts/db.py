@@ -50,7 +50,7 @@ class Data:
         except sqlite3.Error as e:
             print(e)
 
-    def get_test(self, **kwargs):
+    def get_text_test(self, **kwargs):
         try:
             request = """SELECT id_test FROM Tests
                          WHERE text = ?"""
@@ -77,5 +77,14 @@ class Data:
         try:
             request = """SELECT id_game, id_type, picture FROM Games"""
             self.data = self.cur.execute(request).fetchall()
+        except sqlite3.Error as e:
+            print(e)
+
+    def get_test(self, **kwargs):
+        try:
+            request = """SELECT Questions.text, Questions.picture, Answers.text, Answers.is_correct FROM Questions
+                         INNER JOIN Answers ON Questions.id_question = Answers.id_question
+                         WHERE Questions.id_test == ?"""
+            self.data = self.cur.execute(request, (kwargs['id_test'],)).fetchall()
         except sqlite3.Error as e:
             print(e)

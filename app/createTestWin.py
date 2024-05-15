@@ -77,7 +77,7 @@ class TestWin(QWidget):
             self.db.get_type(name='Тест')
             id_type = self.db.data[0][0]
             self.db.add_test(id_type=id_type, text=self.title.text())
-            self.db.get_test(text=self.title.text())
+            self.db.get_text_test(text=self.title.text())
             id_test = self.db.data[0][0]
             for task in self.tasks:
                 self.db.add_taks(id_test=id_test, text=task[0], picture=task[1])
