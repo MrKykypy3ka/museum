@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout, QApplication
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout, QApplication, \
+    QGraphicsDropShadowEffect
+from PyQt5.QtGui import QIcon, QColor
 
 from app.admin.adminWin import AdminWin
 from app.admin.createTestWin import CreateTestWin
@@ -12,9 +13,9 @@ from database.scripts.db import Data
 class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
     def __init__(self):
         super().__init__()
-        self.init_main_ui()
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         self.db = Data('database/Museum.db')
+        self.init_main_ui()
 
     def init_main_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
@@ -34,9 +35,13 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
         self.main_win_vl.addStretch()
         self.main_win_vl.addLayout(hl1)
         self.main_win_vl.addLayout(hl2)
+        self.main_win_vl.addStretch()
         wid.setLayout(self.main_win_vl)
         self.user_btn.clicked.connect(self.init_user_ui)
         self.admin_btn.clicked.connect(self.init_admin_ui)
+
+        self.user_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.admin_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
 
     def closeEvent(self, event):
         QApplication.quit()

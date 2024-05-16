@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout
+from PyQt5.QtGui import QColor
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QGraphicsDropShadowEffect
 from PyQt5.QtCore import QSize
 
 
@@ -11,7 +12,7 @@ class UserWin(QWidget):
         self.setCentralWidget(wid)
         self.tests_btn = QPushButton(' Викторины')
         self.games_btn = QPushButton(' Игры')
-        self.back = QPushButton('Назад')
+        self.back = QPushButton('← Назад')
         self.back.setIconSize(QSize(40, 40))
         self.user_win_vl = QVBoxLayout()
         hl1 = QHBoxLayout()
@@ -32,3 +33,7 @@ class UserWin(QWidget):
         self.back.clicked.connect(self.init_main_ui)
         self.tests_btn.clicked.connect(self.init_list_tests_ui)
         self.games_btn.clicked.connect(self.init_list_tests_ui)
+
+        self.tests_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.games_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.back.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))

@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout
-from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout, QGraphicsDropShadowEffect
+from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import QSize
 
 
@@ -12,7 +12,7 @@ class AdminWin(QWidget):
         self.list_test = QPushButton('# Список тестов')
         self.create_game = QPushButton('+ Создать игру')
         self.list_game = QPushButton('# Список игр')
-        self.back = QPushButton('Назад')
+        self.back = QPushButton('← Назад')
         self.back.setIcon(QIcon('resources/back.png'))
         self.back.setIconSize(QSize(40, 40))
         wid = QWidget()
@@ -43,3 +43,9 @@ class AdminWin(QWidget):
         wid.setLayout(self.admin_win_vl)
         self.create_test.clicked.connect(self.show_create_test_win)
         self.back.clicked.connect(self.init_main_ui)
+
+        self.create_test.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.list_test.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.create_game.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.list_game.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.back.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))

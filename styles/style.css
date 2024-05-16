@@ -1,18 +1,21 @@
+QWidget {
+        border-image : url(resources/background.jpeg) 0 0 0 0;}
+
 QPushButton {
         border-radius : 0;
-        border: 1px solid #cc6;
-        background-color: #333;
-        color: #cc6;
+        border: 1px solid #E8C68D;
+        color: #E8C68D;
         font-family: MontserratBolt;
         font-size: 24pt;
         width: 7em;
         height: 1em;
-        text-align: left;}
+        text-align: left;
+        border-image: url();
+        background-color: #70000E;}
 
-QWidget {
-        background-image : url(resources/background.png);}
 
-QLineEdit, QListWidget, QLabel {
-        background-image: url();
-        background-color: #f5f5e6;}
+
+QLineEdit, QListWidget, QLabel{
+        border-image: url();
+        background-color: #fffff0;}
 

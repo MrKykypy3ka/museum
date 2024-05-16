@@ -12,6 +12,7 @@ class TestingWin(QWidget):
         self.setCentralWidget(wid)
         self.db.get_test(id_test=[x[0] for x in self.filter if text_test in x[2]][0])
         print(self.db.data)
+        self.answers = [(x[2], x[3]) for x in self.db.data]
 
 
         self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
@@ -34,17 +35,12 @@ class TestingWin(QWidget):
         h_l1.addWidget(self.image, 2)
         h_l1.addStretch(5)
         main_l.addLayout(h_l1, 3)
-        h_l2.addWidget(self.add_image, 2)
-        h_l2.addStretch(5)
         main_l.addLayout(h_l2)
-        main_l.addWidget(self.add_image)
         self.vg_l = QVBoxLayout()
         for _ in range(1, 3):
             self.add_answer()
         answers_group.setLayout(self.vg_l)
         main_l.addWidget(answers_group)
-        h_l4.addStretch(5)
-        h_l4.addWidget(self.add_task, 2)
         main_l.addLayout(h_l4)
         main_l.addStretch()
         self.setLayout(main_l)
