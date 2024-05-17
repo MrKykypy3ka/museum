@@ -1,6 +1,10 @@
+from functools import partial
+
 from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout, QGraphicsDropShadowEffect
 from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import QSize
+
+from components.functions import button_animation
 
 
 class AdminWin(QWidget):
@@ -41,8 +45,9 @@ class AdminWin(QWidget):
         self.admin_win_vl.addStretch()
         self.admin_win_vl.addLayout(hl5)
         wid.setLayout(self.admin_win_vl)
-        self.create_test.clicked.connect(self.show_create_test_win)
-        self.back.clicked.connect(self.init_main_ui)
+
+        self.create_test.clicked.connect(partial(button_animation, btn=self.create_test, win=self, f=self.show_create_test_win))
+        self.back.clicked.connect(partial(button_animation, btn=self.back, win=self, f=self.init_main_ui))
 
         self.create_test.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
         self.list_test.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))

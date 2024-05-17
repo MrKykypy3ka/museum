@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLineEdit, QLabel, QGroupBox, QCheckBox
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
-from classes.new_widgets import ScaledPixmapLabel
+from components.new_widgets import ScaledPixmapLabel
 
 
 class TestingWin(QWidget):
@@ -15,12 +15,10 @@ class TestingWin(QWidget):
         self.answers = [(x[2], x[3]) for x in self.db.data]
 
 
-        self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
         self.resize(600, 400)
         self.setFixedWidth(600)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
-        self.question = QLineEdit()
-        self.question.setPlaceholderText('Введите название вопроса')
+        self.question = QLabel()
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
         self.image.setStyleSheet('border: 1px solid black;')
         self.image.setScaledContents(False)

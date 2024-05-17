@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QGroupBox, QFileDialog, QCheckBox
 from PyQt5.QtGui import QIcon, QPixmap, QImage
 from PyQt5.QtCore import Qt, pyqtSignal
-from classes.new_widgets import ScaledPixmapLabel
+from components.new_widgets import ScaledPixmapLabel
 
 
 class CreateTaskWin(QWidget):
@@ -105,7 +105,6 @@ class CreateTaskWin(QWidget):
         elif self.question.text():
             self.question.setStyleSheet('''''')
 
-
     def check_correct(self):
         for i in range(len(self.answers)):
             self.answers[i][1].setStyleSheet('''''')
@@ -116,7 +115,6 @@ class CreateTaskWin(QWidget):
                     self.bad_answers += 1
                     self.answers[i][1].setStyleSheet('''border: 1px solid red;''')
                     self.answers[j][1].setStyleSheet('''border: 1px solid red;''')
-
 
     def closeEvent(self, event):
         self.data_signal.emit(self.task)

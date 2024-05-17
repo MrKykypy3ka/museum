@@ -1,3 +1,4 @@
+from functools import partial
 from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QHBoxLayout, QApplication, \
     QGraphicsDropShadowEffect
 from PyQt5.QtGui import QIcon, QColor
@@ -7,6 +8,7 @@ from app.admin.createTestWin import CreateTestWin
 from app.user.listEventWin import ListEventWin
 from app.user.testingWin import TestingWin
 from app.user.userWin import UserWin
+from components.functions import button_animation
 from database.scripts.db import Data
 
 
@@ -21,8 +23,8 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
         self.setWindowTitle('Краеведческий музей Благовещенска')
         self.resize(700, 450)
         self.setFixedSize(700, 450)
-        wid = QWidget()
-        self.setCentralWidget(wid)
+        self.wid = QWidget()
+        self.setCentralWidget(self.wid)
         self.user_btn = QPushButton(' Зал')
         self.admin_btn = QPushButton(' Методист')
         self.main_win_vl = QVBoxLayout()
@@ -36,9 +38,9 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
         self.main_win_vl.addLayout(hl1)
         self.main_win_vl.addLayout(hl2)
         self.main_win_vl.addStretch()
-        wid.setLayout(self.main_win_vl)
-        self.user_btn.clicked.connect(self.init_user_ui)
-        self.admin_btn.clicked.connect(self.init_admin_ui)
+        self.wid.setLayout(self.main_win_vl)
+        self.user_btn.clicked.connect(partial(button_animation, btn=self.user_btn, win=self.wid, f=self.init_user_ui))
+        self.admin_btn.clicked.connect(partial(button_animation, btn=self.admin_btn, win=self.wid, f=self.init_admin_ui))
 
         self.user_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
         self.admin_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
