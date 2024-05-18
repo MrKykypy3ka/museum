@@ -1,8 +1,8 @@
 QWidget {
-        border-image : url(resources/background.jpeg) 0 0 0 0;}
+        border-image: url(resources/background.jpeg) 0 0 0 0;}
 
 QPushButton {
-        border-radius : 0;
+        border-radius: 0;
         border: 1px solid #E8C68D;
         color: #E8C68D;
         font-family: MontserratBolt;
@@ -13,9 +13,7 @@ QPushButton {
         border-image: url();
         background-color: #70000E;}
 
-
-
-QLineEdit, QListWidget, QLabel{
+QLineEdit, QListWidget, QLabel, QGroupBox, QCheckBox {
         border: 1px solid #E8C68D;
         border-image: url();
         background-color: #fffff0;}

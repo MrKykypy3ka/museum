@@ -39,11 +39,18 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
         self.main_win_vl.addLayout(hl2)
         self.main_win_vl.addStretch()
         self.wid.setLayout(self.main_win_vl)
+
         self.user_btn.clicked.connect(partial(button_animation, btn=self.user_btn, win=self.wid, f=self.init_user_ui))
         self.admin_btn.clicked.connect(partial(button_animation, btn=self.admin_btn, win=self.wid, f=self.init_admin_ui))
 
-        self.user_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
-        self.admin_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.user_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
+                                                                  xOffset=4,
+                                                                  yOffset=4,
+                                                                  color=QColor(0, 0, 0)))
+        self.admin_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
+                                                                   xOffset=4,
+                                                                   yOffset=4,
+                                                                   color=QColor(0, 0, 0)))
 
     def closeEvent(self, event):
         QApplication.quit()

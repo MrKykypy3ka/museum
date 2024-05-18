@@ -1,4 +1,5 @@
-from PyQt5.QtCore import QPropertyAnimation, QRect, QTimer
+from PyQt5.QtCore import QPropertyAnimation, QRect, QTimer, QByteArray
+from PyQt5.QtGui import QPixmap, QImage
 
 
 def button_animation(btn, win, f):
@@ -15,3 +16,7 @@ def button_animation(btn, win, f):
     animation_press.finished.connect(animation_release.start)
     animation_press.start()
     QTimer.singleShot(100, f)
+
+
+def load_image(image):
+    return QPixmap.fromImage(QImage.fromData(QByteArray(image)))

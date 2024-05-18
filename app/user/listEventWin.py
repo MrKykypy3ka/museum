@@ -32,7 +32,9 @@ class ListEventWin(QWidget):
         self.list_tests_win_vl.addStretch()
         self.list_tests_win_vl.addLayout(hl2)
         wid_list.setLayout(self.list_tests_win_vl)
+
         self.db.get_all_tests()
+
         self.searching(self.search_test, self.list_tests)
         self.search_test.textChanged.connect(partial(self.searching, line_w=self.search_test, list_w=self.list_tests))
         self.start_test_btn.clicked.connect(self.show_testing_win)

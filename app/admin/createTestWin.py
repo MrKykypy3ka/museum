@@ -53,10 +53,10 @@ class CreateTestWin(QWidget):
 
     def showCreateAnswerWin(self):
         self.win_ct = CreateTaskWin()
-        self.win_ct.data_signal.connect(self.getData)
+        self.win_ct.data_signal.connect(self.addData)
         self.win_ct.show()
 
-    def getData(self, data):
+    def addData(self, data):
         self.tasks.append(data)
         self.tasks_list.addItem(data[0])
 
