@@ -1,5 +1,5 @@
-from PyQt5.QtCore import QPropertyAnimation, QRect, QTimer, QByteArray
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtCore import QPropertyAnimation, QRect, QTimer, QByteArray, Qt
+from PyQt5.QtGui import QPixmap, QImage, QPainter, QFont, QPainterPath, QPen, QColor, QBrush
 
 
 def button_animation(btn, win, f):

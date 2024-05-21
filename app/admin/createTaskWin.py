@@ -1,10 +1,10 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QGroupBox, QFileDialog, QCheckBox
+from PyQt5.QtWidgets import QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QGroupBox, QFileDialog, QCheckBox, QMainWindow
 from PyQt5.QtGui import QIcon, QPixmap, QImage
 from PyQt5.QtCore import Qt, pyqtSignal
 from components.new_widgets import ScaledPixmapLabel
 
 
-class CreateTaskWin(QWidget):
+class CreateTaskWin(QMainWindow):
     data_signal = pyqtSignal(list)
 
     def __init__(self, parent=None):
@@ -18,6 +18,9 @@ class CreateTaskWin(QWidget):
         self.setFixedWidth(600)
         # self.setFixedSize(self.width(), self.height())
         self.setWindowIcon(QIcon('resources/favicon.ico'))
+        win = QWidget()
+        self.setCentralWidget(win)
+        win.setObjectName('create')
         self.question = QLineEdit()
         self.question.setPlaceholderText('Введите название вопроса')
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
@@ -56,7 +59,7 @@ class CreateTaskWin(QWidget):
         h_l4.addWidget(self.add_task, 2)
         main_l.addLayout(h_l4)
         main_l.addStretch()
-        self.setLayout(main_l)
+        win.setLayout(main_l)
         self.add_answer_btn.clicked.connect(self.add_answer)
         self.del_answer_btn.clicked.connect(self.del_answer)
         self.add_image.clicked.connect(self.load_image)

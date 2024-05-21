@@ -1,6 +1,10 @@
 QWidget {
         border-image: url(resources/background.jpeg) 0 0 0 0;}
 
+QWidget#create{
+        border-image: url(resources/transparent_background.png);
+}
+
 QPushButton {
         border-radius: 0;
         border: 1px solid #E8C68D;
@@ -13,7 +17,33 @@ QPushButton {
         border-image: url();
         background-color: #70000E;}
 
-QLineEdit, QListWidget, QLabel, QGroupBox, QCheckBox {
+QLineEdit, QListWidget, QGroupBox, QCheckBox {
         border: 1px solid #E8C68D;
         border-image: url();
         background-color: #fffff0;}
+
+QLabel{
+        font-family: MontserratBolt;
+        font-size: 24pt;
+        color: #E8C68D;
+        border: 1px rgba(0,0,0,0);
+        border-image: url();
+        background-color: rgba(0,0,0,0);
+}
+
+QPushButton#create {
+        border-radius: 0;
+        border: 1px solid #E8C68D;
+        color: #E8C68D;
+        font-family: MontserratBolt;
+        font-size: 17pt;
+        text-align: left;
+        border-image: url();
+        background-color: #70000E;
+        width: 30%;
+}
+
+QListWidget::item:selected {
+        background : #70000e;
+}
+

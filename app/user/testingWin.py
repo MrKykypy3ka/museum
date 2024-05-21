@@ -26,7 +26,7 @@ class TestingWin(QWidget):
         h_l1 = QHBoxLayout()
         h_l2 = QHBoxLayout()
         h_l4 = QHBoxLayout()
-        answers_group = QGroupBox('Ответы')
+        self.answers_group = QGroupBox('Ответы')
         main_l.addStretch()
         main_l.addWidget(self.question)
         h_l1.addStretch(5)
@@ -35,8 +35,8 @@ class TestingWin(QWidget):
         main_l.addLayout(h_l1, 3)
         main_l.addLayout(h_l2)
         self.vg_l = QVBoxLayout()
-        answers_group.setLayout(self.vg_l)
-        main_l.addWidget(answers_group)
+        self.answers_group.setLayout(self.vg_l)
+        main_l.addWidget(self.answers_group)
         h_l4.addStretch()
         h_l4.addWidget(self.accept)
         main_l.addLayout(h_l4)
@@ -52,11 +52,10 @@ class TestingWin(QWidget):
                                                                    color=QColor(0, 0, 0)))
 
     def add_answer(self, text_test):
-        if len(self.answers) < 8:
-            correct = QCheckBox(text_test)
-            h_l = QHBoxLayout()
-            h_l.addWidget(correct)
-            self.vg_l.addLayout(h_l)
+        correct = QCheckBox(text_test)
+        h_l = QHBoxLayout()
+        h_l.addWidget(correct)
+        self.vg_l.addLayout(h_l)
 
     def task_formation(self, text_test):
         self.setWindowTitle(f'Краеведческий музей Благовещенска: Тест - {text_test}')
@@ -72,3 +71,4 @@ class TestingWin(QWidget):
 
     def next_task(self):
         pass
+
