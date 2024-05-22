@@ -1,5 +1,5 @@
 from functools import partial
-
+from random import shuffle
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox, QCheckBox, QPushButton, \
     QGraphicsDropShadowEffect
 from PyQt5.QtGui import QIcon, QColor
@@ -10,6 +10,9 @@ from components.functions import load_image, button_animation
 
 class TestingWin(QWidget):
     def init_testing_ui(self):
+        self.current_task = 0
+        self.answers_users = []
+
         wid = QWidget()
         self.setCentralWidget(wid)
         self.resize(600, 400)
@@ -43,7 +46,7 @@ class TestingWin(QWidget):
         main_l.addStretch()
         wid.setLayout(main_l)
 
-        self.task_formation(self.list_tests.currentItem().text())
+        self.test_formation(self.list_tests.currentItem().text())
 
         self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.next_task))
         self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
@@ -57,18 +60,33 @@ class TestingWin(QWidget):
         h_l.addWidget(correct)
         self.vg_l.addLayout(h_l)
 
-    def task_formation(self, text_test):
+    def test_formation(self, text_test):
         self.setWindowTitle(f'Краеведческий музей Благовещенска: Тест - {text_test}')
         self.db.get_test(id_test=[x[0] for x in self.filter if text_test in x[2]][0])
-        print(self.db.data)
-        self.answers = [(x[2], x[3]) for x in self.db.data]
-        self.question.setText(self.db.data[0][0])
-        print(self.answers)
-        for i in range(len(self.answers)):
-            self.add_answer(self.answers[i][0])
+        self.questions = list(set([(x[0], x[1]) for x in self.db.data]))
+        shuffle(self.questions)
+        self.tasks = dict()
+        for task in self.db.data:
+            if task[0] not in self.tasks:
+                self.tasks[task[0]] = [task[2:]]
+            else:
+                self.tasks[task[0]].append(task[2:])
+
+        print(self.tasks)
+        print(self.questions)
+        self.task_formation()
+
+    def task_formation(self):
+        self.question.setText(self.questions[self.current_task][0])
+        # for i in range(len(self.answers)):
+        #     self.add_answer(self.answers[i][0])
         self.adjustSize()
-        self.image.setPixmap(load_image(self.db.data[0][1]))
+        if self.questions[self.current_task][1]:
+            self.image.setPixmap(load_image(self.questions[self.current_task][1]))
 
     def next_task(self):
-        pass
+        if self.current_task < len(self.answers) - 1:
+            self.current_task += 1
+            self.task_formation()
+
 

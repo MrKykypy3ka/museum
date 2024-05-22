@@ -26,7 +26,7 @@ class CreateTestWin(QMainWindow):
         self.setFixedWidth(700)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
-        win.setObjectName('create')
+        win.setObjectName('transparent')
         self.setCentralWidget(win)
         self.title = QLineEdit()
         self.title.setPlaceholderText('Задайте название теста')

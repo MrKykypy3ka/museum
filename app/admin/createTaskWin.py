@@ -20,7 +20,7 @@ class CreateTaskWin(QMainWindow):
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
         self.setCentralWidget(win)
-        win.setObjectName('create')
+        win.setObjectName('transparent')
         self.question = QLineEdit()
         self.question.setPlaceholderText('Введите название вопроса')
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
