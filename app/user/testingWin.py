@@ -10,6 +10,9 @@ from components.functions import load_image, button_animation
 
 class TestingWin(QWidget):
     def init_testing_ui(self):
+        self.current_task = 0
+        self.answers_users = []
+
         wid = QWidget()
         self.setCentralWidget(wid)
         self.resize(600, 400)
@@ -43,7 +46,7 @@ class TestingWin(QWidget):
         main_l.addStretch()
         wid.setLayout(main_l)
 
-        self.task_formation(self.list_tests.currentItem().text())
+        self.tesk_formation(self.list_tests.currentItem().text())
 
         self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.next_task))
         self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
@@ -57,11 +60,13 @@ class TestingWin(QWidget):
         h_l.addWidget(correct)
         self.vg_l.addLayout(h_l)
 
-    def task_formation(self, text_test):
+    def tesk_formation(self, text_test):
         self.setWindowTitle(f'Краеведческий музей Благовещенска: Тест - {text_test}')
         self.db.get_test(id_test=[x[0] for x in self.filter if text_test in x[2]][0])
-        print(self.db.data)
-        self.answers = [(x[2], x[3]) for x in self.db.data]
+        for task in self.db.data:
+            print([task[0]] + list(task[2:]))
+
+    def task_formation(self):
         self.question.setText(self.db.data[0][0])
         print(self.answers)
         for i in range(len(self.answers)):
@@ -70,5 +75,8 @@ class TestingWin(QWidget):
         self.image.setPixmap(load_image(self.db.data[0][1]))
 
     def next_task(self):
-        pass
+        if self.current_task < len(self.answers) - 1:
+            self.current_task += 1
+            self.task_formation()
+
 

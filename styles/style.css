@@ -1,7 +1,7 @@
 QWidget {
         border-image: url(resources/background.jpeg) 0 0 0 0;}
 
-QWidget#create{
+QWidget#transparent{
         border-image: url(resources/transparent_background.png);
 }
 
