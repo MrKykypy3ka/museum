@@ -11,7 +11,6 @@ class UserWin(QWidget):
     def init_user_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
         self.resize(700, 450)
-        self.setFixedSize(700, 450)
         wid = QWidget()
         self.setCentralWidget(wid)
         self.tests_btn = QPushButton(' Викторины')

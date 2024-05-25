@@ -20,3 +20,11 @@ def button_animation(btn, win, f):
 
 def load_image(image):
     return QPixmap.fromImage(QImage.fromData(QByteArray(image)))
+
+
+def counting_correct_answers(sample, user):
+    result = 0
+    for question in user:
+        if sample[question] == user[question]:
+            result += 1
+    return result

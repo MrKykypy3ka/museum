@@ -15,7 +15,6 @@ class CreateTaskWin(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
         self.resize(600, 400)
-        self.setFixedWidth(600)
         # self.setFixedSize(self.width(), self.height())
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()

@@ -23,7 +23,6 @@ class CreateTestWin(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание теста')
         self.resize(700, 450)
-        self.setFixedWidth(700)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
         win.setObjectName('transparent')

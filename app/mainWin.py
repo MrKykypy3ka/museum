@@ -22,7 +22,6 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
     def init_main_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
         self.resize(700, 450)
-        self.setFixedSize(700, 450)
         self.wid = QWidget()
         self.setCentralWidget(self.wid)
         self.user_btn = QPushButton(' Зал')
@@ -55,11 +54,4 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
     def closeEvent(self, event):
         QApplication.quit()
 
-    def get_close_signal(self, data):
-        self.show()
 
-    def show_create_test_win(self):
-        self.win_ct = CreateTestWin()
-        self.win_ct.close_signal.connect(self.get_close_signal)
-        self.win_ct.show()
-        self.hide()

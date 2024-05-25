@@ -10,6 +10,11 @@ class ScaledPixmapLabel(QLabel):
         super().__init__(*args, **kwargs)
         self.setMinimumSize(1, 1)
 
+    def setPixmap(self, pixmap):
+        super().setPixmap(pixmap)
+        self.scaled = None  # Сбросить масштабированное изображение
+        self.update()  # Перерисовать виджет
+
     def resizeEvent(self, event):
         if self.pixmap() and not self.pixmap().isNull():
             self.scaled = self.pixmap().scaled(
