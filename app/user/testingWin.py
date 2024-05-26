@@ -10,7 +10,7 @@ from components.functions import load_image, button_animation
 
 class TestingWin(QWidget):
     def init_testing_ui(self):
-        self.current_task = 0
+        self.current_task = -1
         self.answers_users = dict()
         self.answers_true = dict()
         self.answers = []
@@ -75,7 +75,7 @@ class TestingWin(QWidget):
                 self.tasks[task[0]].append(task[2:])
         for task in self.tasks:
             self.answers_true[task] = [answer[0] for answer in self.tasks[task] if answer[1] == 1]
-        self.task_formation()
+        self.next_task()
 
     def task_formation(self):
         for elem in self.answers:

@@ -13,8 +13,8 @@ class AdminWin(QWidget):
     def init_admin_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
         self.resize(700, 450)
-        self.create_test = QPushButton('+ Создать тест')
-        self.list_test = QPushButton('# Список тестов')
+        self.create_test = QPushButton('+ Создать викторину')
+        self.list_test = QPushButton('# Список викторин')
         self.create_game = QPushButton('+ Создать игру')
         self.list_game = QPushButton('# Список игр')
         self.back = QPushButton('← Назад')

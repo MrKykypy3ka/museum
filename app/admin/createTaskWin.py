@@ -15,7 +15,6 @@ class CreateTaskWin(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
         self.resize(600, 400)
-        # self.setFixedSize(self.width(), self.height())
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
         self.setCentralWidget(win)
@@ -28,7 +27,7 @@ class CreateTaskWin(QMainWindow):
         self.image.setFixedSize(200, 200)
         self.add_image = QPushButton('Добавить изображение')
         self.answers = list()
-        self.add_task = QPushButton('Добавить вопрос')
+        self.accept = QPushButton('Добавить вопрос')
         self.add_answer_btn = QPushButton('+')
         self.del_answer_btn = QPushButton('-')
         main_l = QVBoxLayout()
@@ -55,14 +54,14 @@ class CreateTaskWin(QMainWindow):
         h_l3.addStretch(5)
         main_l.addLayout(h_l3)
         h_l4.addStretch(5)
-        h_l4.addWidget(self.add_task, 2)
+        h_l4.addWidget(self.accept, 2)
         main_l.addLayout(h_l4)
         main_l.addStretch()
         win.setLayout(main_l)
         self.add_answer_btn.clicked.connect(self.add_answer)
         self.del_answer_btn.clicked.connect(self.del_answer)
         self.add_image.clicked.connect(self.load_image)
-        self.add_task.clicked.connect(self.task_formation)
+        self.accept.clicked.connect(self.task_formation)
         self.data_signal.connect(self.close)
 
     def add_answer(self):
