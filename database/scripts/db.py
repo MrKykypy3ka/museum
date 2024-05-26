@@ -42,11 +42,29 @@ class Data:
         except sqlite3.Error as e:
             print(e)
 
+    def add_game(self, **kwargs):
+        try:
+            request = """INSERT INTO Games (id_type, text, picture)
+                                      VALUES (?, ?, ?);"""
+            data = (kwargs['id_type'], kwargs['text'], kwargs['picture'])
+            self.cur.execute(request, data).fetchall()
+            self.db.commit()
+        except sqlite3.Error as e:
+            print(e)
+
     def get_type(self, **kwargs):
         try:
             request = """SELECT id_type FROM Types_event
                          WHERE name = ?"""
             self.data = self.cur.execute(request, (kwargs['name'],)).fetchall()
+        except sqlite3.Error as e:
+            print(e)
+
+    def get_games_types(self, **kwargs):
+        try:
+            request = """SELECT id_type, name FROM Types_event
+                         WHERE name <> 'Тест'"""
+            self.data = self.cur.execute(request).fetchall()
         except sqlite3.Error as e:
             print(e)
 

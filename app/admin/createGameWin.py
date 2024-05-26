@@ -3,7 +3,7 @@ from functools import partial
 from components.functions import button_animation
 from components.new_widgets import ScaledPixmapLabel
 
-from PyQt5.QtWidgets import (QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QMainWindow,
+from PyQt5.QtWidgets import (QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QMainWindow, QComboBox,
                              QGraphicsDropShadowEffect, QFileDialog)
 from PyQt5.QtGui import QIcon, QColor, QPixmap, QImage
 from PyQt5.QtCore import pyqtSignal, Qt
@@ -16,6 +16,7 @@ class CreateGameWin(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.db = Data('database/Museum.db')
+        self.db.get_games_types()
         self.init_ui()
         self.tasks = list()
 
@@ -28,12 +29,15 @@ class CreateGameWin(QMainWindow):
         self.setCentralWidget(win)
         self.title = QLineEdit()
         self.title.setPlaceholderText('Введите название игры')
+        self.list_games = QComboBox()
+        for elem in self.db.data:
+            self.list_games.addItem(elem[1])
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
         self.image.setStyleSheet('border: 1px solid black;')
         self.image.setScaledContents(False)
         self.image.setFixedSize(200, 200)
         self.add_image = QPushButton('Добавить изображение')
-        self.accept = QPushButton('Добавить вопрос')
+        self.accept = QPushButton('Создать игру')
 
         main_l = QVBoxLayout()
         h_l1 = QHBoxLayout()
@@ -42,6 +46,7 @@ class CreateGameWin(QMainWindow):
 
         main_l.addStretch()
         main_l.addWidget(self.title)
+        main_l.addWidget(self.list_games)
         h_l1.addWidget(self.image, 2)
         h_l1.addStretch(5)
         main_l.addLayout(h_l1, 3)
@@ -78,17 +83,14 @@ class CreateGameWin(QMainWindow):
                 self.byte_image = file.read()
 
     def game_formation(self):
-        pass
-        # self.check_correct()
-        # if not self.bad_answers and self.question.text():
-        #     self.task = list()
-        #     self.task.append(self.question.text())
-        #     self.task.append(self.byte_image)
-        #     self.task.append([])
-        #     for i in range(len(self.answers)):
-        #         self.task[2].append((self.answers[i][0].isCheckable(), self.answers[i][1].text()))
-        #     self.close()
-        # elif not self.question.text():
-        #     self.question.setStyleSheet('''border: 1px solid red;''')
-        # elif self.question.text():
-        #     self.question.setStyleSheet('''''')
+        self.title.setStyleSheet('''''')
+        if not self.title.text():
+            self.title.setStyleSheet('''border: 1px solid red;''')
+        elif not self.image.pixmap():
+            self.image.setStyleSheet('''border: 1px solid red;''')
+        else:
+            id_type = [x[0] for x in self.db.data if x[1] == self.list_games.currentText()][0]
+            text = self.title.text()
+            print(id_type, text)
+            self.db.add_game(id_type=id_type, text=text, picture=self.byte_image)
+            self.close()

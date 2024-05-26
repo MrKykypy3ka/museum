@@ -15,6 +15,7 @@ class CreateTaskWin(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
         self.resize(600, 400)
+
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
         self.setCentralWidget(win)
@@ -30,6 +31,15 @@ class CreateTaskWin(QMainWindow):
         self.accept = QPushButton('Добавить вопрос')
         self.add_answer_btn = QPushButton('+')
         self.del_answer_btn = QPushButton('-')
+
+        self.del_answer_btn.adjustSize()
+        self.add_answer_btn.adjustSize()
+
+        self.add_image.setObjectName('create')
+        self.add_answer_btn.setObjectName('create')
+        self.del_answer_btn.setObjectName('create')
+        self.accept.setObjectName('create')
+
         main_l = QVBoxLayout()
         h_l1 = QHBoxLayout()
         h_l2 = QHBoxLayout()
@@ -49,9 +59,9 @@ class CreateTaskWin(QMainWindow):
             self.add_answer()
         answers_group.setLayout(self.vg_l)
         main_l.addWidget(answers_group)
-        h_l3.addWidget(self.del_answer_btn, 1)
-        h_l3.addWidget(self.add_answer_btn, 1)
-        h_l3.addStretch(5)
+        h_l3.addWidget(self.del_answer_btn)
+        h_l3.addWidget(self.add_answer_btn)
+        h_l3.addStretch()
         main_l.addLayout(h_l3)
         h_l4.addStretch(5)
         h_l4.addWidget(self.accept, 2)
@@ -74,14 +84,14 @@ class CreateTaskWin(QMainWindow):
             h_l.addWidget(correct)
             h_l.addWidget(answer)
             self.vg_l.addLayout(h_l)
-            self.adjustSize()
+            # self.adjustSize()
 
     def del_answer(self):
         if len(self.answers) > 2:
             self.answers[-1][0].deleteLater()
             self.answers[-1][1].deleteLater()
             self.answers = self.answers[:-1]
-            self.adjustSize()
+            # self.adjustSize()
 
     def load_image(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home', "Images (*.png *.jpeg *.jpg)")
