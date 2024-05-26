@@ -23,7 +23,7 @@ class Data:
 
     def add_taks(self, **kwargs):
         try:
-            request = """INSERT INTO Tasks (id_test, text, picture)
+            request = """INSERT INTO Questions (id_test, text, picture)
                                       VALUES (?, ?, ?);"""
             data = (kwargs['id_test'], kwargs['text'], kwargs['picture'])
             print(data)
@@ -34,9 +34,9 @@ class Data:
 
     def add_answer(self, **kwargs):
         try:
-            request = """INSERT INTO Answers (id_task, text, is_correct)
+            request = """INSERT INTO Answers (id_question, text, is_correct)
                                       VALUES (?, ?, ?);"""
-            data = (kwargs['id_task'], kwargs['text'], kwargs['is_correct'])
+            data = (kwargs['id_question'], kwargs['text'], kwargs['is_correct'])
             self.cur.execute(request, data).fetchall()
             self.db.commit()
         except sqlite3.Error as e:
@@ -60,7 +60,7 @@ class Data:
 
     def get_task(self, **kwargs):
         try:
-            request = """SELECT id_task FROM Tasks
+            request = """SELECT id_question FROM Questions
                          WHERE text = ?"""
             self.data = self.cur.execute(request, (kwargs['text'],)).fetchall()
         except sqlite3.Error as e:

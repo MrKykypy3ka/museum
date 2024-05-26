@@ -99,7 +99,7 @@ class CreateTaskWin(QMainWindow):
             self.task.append(self.byte_image)
             self.task.append([])
             for i in range(len(self.answers)):
-                self.task[2].append((self.answers[i][0].isCheckable(), self.answers[i][1].text()))
+                self.task[2].append((self.answers[i][0].isChecked(), self.answers[i][1].text()))
             self.close()
         elif not self.question.text():
             self.question.setStyleSheet('''border: 1px solid red;''')

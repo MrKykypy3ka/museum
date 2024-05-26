@@ -95,7 +95,7 @@ class CreateTestWin(QMainWindow):
                 self.db.get_task(text=task[0])
                 id_task = self.db.data[0][0]
                 for answer in task[2]:
-                    self.db.add_answer(id_task=id_task, text=answer[1], is_correct=answer[0])
+                    self.db.add_answer(id_question=id_task, text=answer[1], is_correct=answer[0])
             self.close()
         elif not self.title.text():
             self.title.setStyleSheet('''border: 1px solid red;''')
