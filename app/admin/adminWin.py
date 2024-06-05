@@ -17,13 +17,6 @@ class AdminWin(QWidget):
         self.create_game = QPushButton('+ Создать игру')
         self.list_game = QPushButton('# Список игр')
         self.back = QPushButton('← Назад')
-
-        self.create_test.setObjectName('main')
-        self.list_test.setObjectName('main')
-        self.create_game.setObjectName('main')
-        self.list_game.setObjectName('main')
-        self.back.setObjectName('main')
-
         self.back.setIcon(QIcon('resources/back.png'))
         self.back.setIconSize(QSize(40, 40))
         wid = QWidget()
@@ -52,6 +45,12 @@ class AdminWin(QWidget):
         self.admin_win_vl.addStretch()
         self.admin_win_vl.addLayout(hl5)
         wid.setLayout(self.admin_win_vl)
+
+        self.create_test.setObjectName('main')
+        self.list_test.setObjectName('main')
+        self.create_game.setObjectName('main')
+        self.list_game.setObjectName('main')
+        self.back.setObjectName('main')
 
         self.create_test.clicked.connect(partial(button_animation, btn=self.create_test, win=self, f=self.show_create_test_win))
         self.create_game.clicked.connect(partial(button_animation, btn=self.create_game, win=self, f=self.show_create_game_win))

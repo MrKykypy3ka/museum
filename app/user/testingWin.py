@@ -17,7 +17,6 @@ class TestingWin(QWidget):
 
         self.wid = QWidget()
         self.setCentralWidget(self.wid)
-        self.resize(600, 400)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
 
         self.question = QLabel()
@@ -45,9 +44,9 @@ class TestingWin(QWidget):
         main_l.addLayout(h_l4)
         main_l.addStretch()
         self.wid.setLayout(main_l)
-
         self.test_formation(self.list_tests.currentItem().text())
 
+        self.accept.setObjectName('main')
         self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.next_task))
         self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
                                                                    xOffset=4,

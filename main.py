@@ -7,7 +7,7 @@ def main():
     app = QApplication([])
     app.setStyleSheet("\n".join(open('styles/style.css').readlines()))
     win = MainWin()
-    win.show()
+    win.showFullScreen()
     sys.exit(app.exec_())
 
 

@@ -24,6 +24,8 @@ class CreateTestWin(QMainWindow):
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание теста')
         self.setWindowIcon(QIcon('resources/favicon.ico'))
+        self.resize(1280, 720)
+        self.setFixedSize(1280, 720)
         win = QWidget()
         win.setObjectName('transparent')
         self.setCentralWidget(win)
@@ -93,7 +95,7 @@ class CreateTestWin(QMainWindow):
 
     def closeEvent(self, event):
         self.close_signal.emit(True)
-        event.accept()
+        event.accept_btn()
 
     def set_style(self):
         self.add_answer_btn.setObjectName('create')

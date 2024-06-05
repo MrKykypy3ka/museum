@@ -21,28 +21,35 @@ class MainWin(QMainWindow, AdminWin, UserWin, TestingWin, ListEventWin):
 
     def init_main_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
-        self.resize(700, 450)
         self.wid = QWidget()
         self.setCentralWidget(self.wid)
         self.user_btn = QPushButton(' Зал')
-        self.user_btn.setObjectName('main')
         self.admin_btn = QPushButton(' Методист')
-        self.admin_btn.setObjectName('main')
+        self.exit_btn = QPushButton(' Выход')
         self.main_win_vl = QVBoxLayout()
         hl1 = QHBoxLayout()
         hl2 = QHBoxLayout()
+        hl3 = QHBoxLayout()
         hl1.addWidget(self.user_btn)
         hl1.addStretch()
         hl2.addWidget(self.admin_btn)
         hl2.addStretch()
+        hl3.addStretch()
+        hl3.addWidget(self.exit_btn)
+
         self.main_win_vl.addStretch()
         self.main_win_vl.addLayout(hl1)
         self.main_win_vl.addLayout(hl2)
         self.main_win_vl.addStretch()
+        self.main_win_vl.addLayout(hl3)
         self.wid.setLayout(self.main_win_vl)
 
+        self.user_btn.setObjectName('main')
+        self.admin_btn.setObjectName('main')
+        self.exit_btn.setObjectName('main')
         self.user_btn.clicked.connect(partial(button_animation, btn=self.user_btn, win=self.wid, f=self.init_user_ui))
         self.admin_btn.clicked.connect(partial(button_animation, btn=self.admin_btn, win=self.wid, f=self.init_admin_ui))
+        self.exit_btn.clicked.connect(partial(button_animation, btn=self.exit_btn, win=self.wid, f=self.close))
 
         self.user_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
                                                                   xOffset=4,

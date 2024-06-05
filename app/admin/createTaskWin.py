@@ -14,9 +14,9 @@ class CreateTaskWin(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание вопроса')
-        self.resize(600, 400)
-
         self.setWindowIcon(QIcon('resources/favicon.ico'))
+        self.resize(1280, 720)
+        self.setFixedSize(1280, 720)
         win = QWidget()
         self.setCentralWidget(win)
         win.setObjectName('transparent')
@@ -84,14 +84,11 @@ class CreateTaskWin(QMainWindow):
             h_l.addWidget(correct)
             h_l.addWidget(answer)
             self.vg_l.addLayout(h_l)
-            # self.adjustSize()
-
     def del_answer(self):
         if len(self.answers) > 2:
             self.answers[-1][0].deleteLater()
             self.answers[-1][1].deleteLater()
             self.answers = self.answers[:-1]
-            # self.adjustSize()
 
     def load_image(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home', "Images (*.png *.jpeg *.jpg)")
@@ -129,4 +126,4 @@ class CreateTaskWin(QMainWindow):
 
     def closeEvent(self, event):
         self.data_signal.emit(self.task)
-        event.accept()
+        event.accept_btn()

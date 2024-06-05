@@ -48,9 +48,15 @@ QListWidget::item:selected {
         background : #70000e;
 }
 
+QComboBox {
+        border-image: url();
+        background-color: transparent;
+        border: 1px solid #000000;
+}
+
 QComboBox QAbstractItemView {
-    border-image: url();
-    selection-background-color: #70000e;
-    background-color: #E8C68D;
+        border-image: url();
+        selection-background-color: #70000e;
+        background-color: #E8C68D;
 }
 

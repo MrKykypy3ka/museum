@@ -22,10 +22,11 @@ class CreateGameWin(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание теста')
-        self.resize(700, 450)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
+        self.resize(1280, 720)
+        self.setFixedSize(1280, 720)
+
         win = QWidget()
-        win.setObjectName('transparent')
         self.setCentralWidget(win)
         self.title = QLineEdit()
         self.title.setPlaceholderText('Введите название игры')
@@ -36,8 +37,8 @@ class CreateGameWin(QMainWindow):
         self.image.setStyleSheet('border: 1px solid black;')
         self.image.setScaledContents(False)
         self.image.setFixedSize(200, 200)
-        self.add_image = QPushButton('Добавить изображение')
-        self.accept = QPushButton('Создать игру')
+        self.add_image_btn = QPushButton('Добавить изображение')
+        self.accept_btn = QPushButton('Создать игру')
 
         main_l = QVBoxLayout()
         h_l1 = QHBoxLayout()
@@ -51,28 +52,32 @@ class CreateGameWin(QMainWindow):
         h_l1.addStretch(5)
         main_l.addLayout(h_l1, 3)
 
-        h_l2.addWidget(self.add_image, 2)
+        h_l2.addWidget(self.add_image_btn, 2)
         h_l2.addStretch(5)
         main_l.addLayout(h_l2)
 
         h_l3.addStretch(5)
-        h_l3.addWidget(self.accept, 2)
+        h_l3.addWidget(self.accept_btn, 2)
         main_l.addLayout(h_l3)
 
         main_l.addStretch()
         win.setLayout(main_l)
 
-        self.add_image.clicked.connect(partial(button_animation, btn=self.add_image, win=self, f=self.load_image))
-        self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.game_formation))
+        win.setObjectName('transparent')
+        self.accept_btn.setObjectName('create')
+        self.add_image_btn.setObjectName('create')
 
-        self.add_image.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
-                                                                   xOffset=4,
-                                                                   yOffset=4,
-                                                                   color=QColor(0, 0, 0)))
-        self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
-                                                                xOffset=4,
-                                                                yOffset=4,
-                                                                color=QColor(0, 0, 0)))
+        self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=self.load_image))
+        self.accept_btn.clicked.connect(partial(button_animation, btn=self.accept_btn, win=self, f=self.game_formation))
+
+        self.add_image_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
+                                                                       xOffset=4,
+                                                                       yOffset=4,
+                                                                       color=QColor(0, 0, 0)))
+        self.accept_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
+                                                                    xOffset=4,
+                                                                    yOffset=4,
+                                                                    color=QColor(0, 0, 0)))
 
     def load_image(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home', "Images (*.png *.jpeg *.jpg)")

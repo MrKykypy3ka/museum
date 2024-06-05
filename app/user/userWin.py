@@ -10,7 +10,6 @@ from components.functions import button_animation
 class UserWin(QWidget):
     def init_user_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
-        self.resize(700, 450)
         wid = QWidget()
         self.setCentralWidget(wid)
         self.tests_btn = QPushButton(' Викторины')
@@ -34,10 +33,13 @@ class UserWin(QWidget):
         self.user_win_vl.addLayout(hl3)
         wid.setLayout(self.user_win_vl)
 
+        self.tests_btn.setObjectName('main')
+        self.games_btn.setObjectName('main')
+        self.back.setObjectName('main')
+
         self.tests_btn.clicked.connect(partial(button_animation, btn=self.tests_btn, win=self, f=self.init_list_tests_ui))
         self.games_btn.clicked.connect(partial(button_animation, btn=self.games_btn, win=self, f=self.init_list_tests_ui))
         self.back.clicked.connect(partial(button_animation, btn=self.back, win=self, f=self.init_main_ui))
-
 
         self.tests_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
         self.games_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
