@@ -5,17 +5,6 @@ QWidget#transparent{
         border-image: url(resources/transparent_background.png);
 }
 
-QPushButton#create {
-        border-radius: 0;
-        border: 1px solid #E8C68D;
-        color: #E8C68D;
-        font-family: MontserratBolt;
-        font-size: 17pt;
-        text-align: left;
-        border-image: url();
-        background-color: #70000E;
-}
-
 QPushButton#main {
         border-radius: 0;
         border: 1px solid #E8C68D;
@@ -26,23 +15,34 @@ QPushButton#main {
         height: 1em;
         text-align: left;
         border-image: url();
-        background-color: #70000E;}
+        background-color: #70000E;
+}
 
-QLineEdit, QListWidget, QGroupBox, QCheckBox, QComboBox {
+QPushButton#create {
+        border-radius: 0;
+        border: 1px solid #E8C68D;
+        color: #E8C68D;
+        font-family: MontserratBolt;
+        font-size: 22pt;
+        text-align: left;
+        border-image: url();
+        background-color: #70000E;
+        width: 100%;
+        height: 50px;
+}
+QLineEdit, QListWidget, QGroupBox, QCheckBox, QComboBox#create {
         border: 1px solid #E8C68D;
         border-image: url();
         background-color: #fffff0;}
 
 QLabel{
         font-family: MontserratBolt;
-        font-size: 24pt;
+        font-size: 26pt;
         color: #E8C68D;
         border: 1px rgba(0,0,0,0);
         border-image: url();
         background-color: rgba(0,0,0,0);
 }
-
-
 
 QListWidget::item:selected {
         background : #70000e;
@@ -53,3 +53,4 @@ QComboBox QAbstractItemView {
     selection-background-color: #70000e;
     background-color: #E8C68D;
 }
+

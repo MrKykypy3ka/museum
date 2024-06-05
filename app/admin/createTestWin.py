@@ -19,10 +19,10 @@ class CreateTestWin(QMainWindow):
         self.db = Data('database/Museum.db')
         self.init_ui()
         self.tasks = list()
+        self.set_style()
 
     def init_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска: создание теста')
-        self.resize(700, 450)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         win = QWidget()
         win.setObjectName('transparent')
@@ -36,13 +36,6 @@ class CreateTestWin(QMainWindow):
         self.del_answer_btn = QPushButton('Удалить вопрос')
         self.write_test_btn = QPushButton('Сохранить викторину')
         self.back = QPushButton('← Назад')
-
-        self.add_answer_btn.setObjectName('create')
-        self.edit_answer_btn.setObjectName('create')
-        self.del_answer_btn.setObjectName('create')
-        self.back.setObjectName('create')
-        self.write_test_btn.setObjectName('create')
-
 
         main_l = QVBoxLayout()
         main_l.addStretch()
@@ -63,23 +56,17 @@ class CreateTestWin(QMainWindow):
         h_l2.addStretch(5)
         main_l.addLayout(h_l2)
         win.setLayout(main_l)
-        self.add_answer_btn.clicked.connect(partial(button_animation, btn=self.add_answer_btn, win=self,  f=self.showCreateAnswerWin))
+        self.add_answer_btn.clicked.connect(partial(button_animation, btn=self.add_answer_btn, win=self, f=self.show_create_answer_win))
         self.write_test_btn.clicked.connect(partial(button_animation, btn=self.write_test_btn, win=self,  f=self.test_formation))
         self.back.clicked.connect(partial(button_animation, btn=self.back, win=self, f=self.close))
-
-        self.back.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
-        self.add_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
-        self.write_test_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
-        self.edit_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
-        self.del_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
         self.close_signal.connect(self.close)
 
-    def showCreateAnswerWin(self):
+    def show_create_answer_win(self):
         self.win_ct = CreateTaskWin()
-        self.win_ct.data_signal.connect(self.addData)
+        self.win_ct.data_signal.connect(self.add_data)
         self.win_ct.show()
 
-    def addData(self, data):
+    def add_data(self, data):
         self.tasks.append(data)
         self.tasks_list.addItem(data[0])
 
@@ -107,3 +94,16 @@ class CreateTestWin(QMainWindow):
     def closeEvent(self, event):
         self.close_signal.emit(True)
         event.accept()
+
+    def set_style(self):
+        self.add_answer_btn.setObjectName('create')
+        self.edit_answer_btn.setObjectName('create')
+        self.del_answer_btn.setObjectName('create')
+        self.back.setObjectName('create')
+        self.write_test_btn.setObjectName('create')
+
+        self.back.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.add_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.write_test_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.edit_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.del_answer_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
