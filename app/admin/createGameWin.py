@@ -21,18 +21,32 @@ class CreateGameWin(QMainWindow):
         self.tasks = list()
 
     def init_ui(self):
-        self.setWindowTitle('Краеведческий музей Благовещенска: создание теста')
+        self.setWindowTitle('Краеведческий музей Благовещенска: создание игр')
         self.setWindowIcon(QIcon('resources/favicon.ico'))
         self.resize(1280, 720)
         self.setFixedSize(1280, 720)
 
-        win = QWidget()
-        self.setCentralWidget(win)
-        self.title = QLineEdit()
-        self.title.setPlaceholderText('Введите название игры')
+        self.win = QWidget()
+        self.setCentralWidget(self.win)
         self.list_games = QComboBox()
         for elem in self.db.data:
             self.list_games.addItem(elem[1])
+        self.main_l = QVBoxLayout()
+        self.main_l.addStretch()
+        self.main_l.addWidget(self.list_games)
+        self.win.setLayout(self.main_l)
+
+        self.list_games.currentTextChanged.connect(self.edit_configurator)
+
+    def edit_configurator(self):
+        if self.list_games.currentData() == 'Пятнашки':
+            self.show_puzzle_ui()
+
+    def show_puzzle_ui(self):
+        self.title = QLineEdit()
+        self.title.setPlaceholderText('Введите название игры')
+
+
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
         self.image.setStyleSheet('border: 1px solid black;')
         self.image.setScaledContents(False)
@@ -40,30 +54,28 @@ class CreateGameWin(QMainWindow):
         self.add_image_btn = QPushButton('Добавить изображение')
         self.accept_btn = QPushButton('Создать игру')
 
-        main_l = QVBoxLayout()
         h_l1 = QHBoxLayout()
         h_l2 = QHBoxLayout()
         h_l3 = QHBoxLayout()
 
-        main_l.addStretch()
-        main_l.addWidget(self.title)
-        main_l.addWidget(self.list_games)
+        self.main_l.addStretch()
+        self.main_l.addWidget(self.title)
+
         h_l1.addWidget(self.image, 2)
         h_l1.addStretch(5)
-        main_l.addLayout(h_l1, 3)
+        self.main_l.addLayout(h_l1, 3)
 
         h_l2.addWidget(self.add_image_btn, 2)
         h_l2.addStretch(5)
-        main_l.addLayout(h_l2)
+        self.main_l.addLayout(h_l2)
 
         h_l3.addStretch(5)
         h_l3.addWidget(self.accept_btn, 2)
-        main_l.addLayout(h_l3)
+        self.main_l.addLayout(h_l3)
 
-        main_l.addStretch()
-        win.setLayout(main_l)
+        self.main_l.addStretch()
 
-        win.setObjectName('transparent')
+        self.win.setObjectName('transparent')
         self.accept_btn.setObjectName('create')
         self.add_image_btn.setObjectName('create')
 
@@ -78,6 +90,10 @@ class CreateGameWin(QMainWindow):
                                                                     xOffset=4,
                                                                     yOffset=4,
                                                                     color=QColor(0, 0, 0)))
+
+
+
+
 
     def load_image(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home', "Images (*.png *.jpeg *.jpg)")
