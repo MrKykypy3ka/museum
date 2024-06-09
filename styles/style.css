@@ -41,7 +41,7 @@ QLineEdit, QListWidget, QGroupBox, QCheckBox, QComboBox#create {
 
 QLabel{
         font-family: MontserratBolt;
-        font-size: 26pt;
+        font-size: 32pt;
         color: #E8C68D;
         border: 1px rgba(0,0,0,0);
         border-image: url();
@@ -57,10 +57,7 @@ QListWidget, QCheckBox, QLineEdit {
         font-size: 24pt;
 }
 
-QCheckBox::indicator {
-    width:  80px;
-    height: 80px;
-}
+
 
 QComboBox {
         border-image: url();
@@ -74,4 +71,28 @@ QComboBox QAbstractItemView {
         background-color: #E8C68D;
 }
 
+QListWidget::item:hover {
+        background-color: rgba(112, 0, 14, 100);
+}
 
+QGroupBox {
+        font-size: 24pt;
+        background-color: rgba(112, 0, 14, 100);
+        /*background-color: rgba(232, 198, 141, 50);*/
+
+}
+
+QCheckBox {
+        background-color: transparent;
+        spacing: 5px;
+        font-size:25px;
+}
+
+QCheckBox::indicator {
+        width:  33px;
+        height: 33px;
+}
+
+OutlineLabel {
+        height: 1em;
+}

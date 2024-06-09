@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox
     QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import Qt
-from components.new_widgets import ScaledPixmapLabel
+from components.new_widgets import ScaledPixmapLabel, OutlineLabel
 from components.functions import load_image, button_animation
 
 
@@ -19,16 +19,17 @@ class TestingWin(QWidget):
         self.setCentralWidget(self.wid)
         self.setWindowIcon(QIcon('resources/favicon.ico'))
 
-        self.question = QLabel()
+        self.question = OutlineLabel('', '#E8C68D', '#70000E')
         self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
         self.image.setFixedWidth(500)
-        self.accept = QPushButton('Ответить')
+        self.accept = QPushButton(' Ответить')
 
         main_l = QVBoxLayout()
         h_l1 = QHBoxLayout()
         h_l2 = QHBoxLayout()
         h_l4 = QHBoxLayout()
-        self.answers_group = QGroupBox('Ответы')
+        self.answers_label = OutlineLabel('Ответы', '#E8C68D', '#70000E')
+        self.answers_group = QGroupBox('')
         main_l.addStretch()
         main_l.addWidget(self.question)
         h_l1.addStretch(5)
@@ -38,6 +39,7 @@ class TestingWin(QWidget):
         main_l.addLayout(h_l2)
         self.vg_l = QVBoxLayout()
         self.answers_group.setLayout(self.vg_l)
+        main_l.addWidget(self.answers_label, alignment=Qt.AlignLeft)
         main_l.addWidget(self.answers_group)
         h_l4.addStretch()
         h_l4.addWidget(self.accept)
@@ -47,6 +49,7 @@ class TestingWin(QWidget):
         self.test_formation(self.list_tests.currentItem().text())
 
         self.accept.setObjectName('main')
+        self.wid.setObjectName('transparent')
         self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.next_task))
         self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
                                                                    xOffset=4,
@@ -88,13 +91,14 @@ class TestingWin(QWidget):
         self.answers_users[self.questions[self.current_task][0]] = []
 
     def next_task(self):
-        if self.accept.text() == 'Завершить':
-            self.show_results()
-        if self.current_task < len(self.questions) - 1:
-            self.current_task += 1
-            self.task_formation()
-            if self.current_task == len(self.questions) - 1:
-                self.accept.setText('Завершить')
+        if any([True if x.isCheked() else False for x in self.answers]) or not self.sender().text():
+            if self.accept.text() == ' Завершить':
+                self.show_results()
+            if self.current_task < len(self.questions) - 1:
+                self.current_task += 1
+                self.task_formation()
+                if self.current_task == len(self.questions) - 1:
+                    self.accept.setText(' Завершить')
 
     def save_answer(self):
         if self.sender().isChecked():

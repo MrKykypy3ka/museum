@@ -16,7 +16,7 @@ class ListEventWin(QWidget):
         self.search_test.setPlaceholderText('Введите название теста')
         self.list_tests = QListWidget()
         self.start_test_btn = QPushButton(' Запустить викторину')
-        self.back = QPushButton('← Назад')
+        self.back = QPushButton(' ← Назад')
         self.back.setIcon(QIcon('resources/back.png'))
         self.back.setIconSize(QSize(40, 40))
         self.list_tests_win_vl = QVBoxLayout()

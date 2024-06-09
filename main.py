@@ -6,6 +6,7 @@ import sys
 def main():
     app = QApplication([])
     app.setStyleSheet("\n".join(open('styles/style.css').readlines()))
+    app.setStyle("fusion")
     win = MainWin()
     win.showFullScreen()
     sys.exit(app.exec_())
