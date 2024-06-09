@@ -37,8 +37,8 @@ class UserWin(QWidget):
         self.games_btn.setObjectName('main')
         self.back.setObjectName('main')
 
-        self.tests_btn.clicked.connect(partial(button_animation, btn=self.tests_btn, win=self, f=self.init_list_tests_ui))
-        self.games_btn.clicked.connect(partial(button_animation, btn=self.games_btn, win=self, f=self.init_list_tests_ui))
+        self.tests_btn.clicked.connect(partial(button_animation, btn=self.tests_btn, win=self, f=partial(self.init_list_ui, type='викторину')))
+        self.games_btn.clicked.connect(partial(button_animation, btn=self.games_btn, win=self, f=partial(self.init_list_ui, type='игру')))
         self.back.clicked.connect(partial(button_animation, btn=self.back, win=self, f=self.init_main_ui))
 
         self.tests_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))

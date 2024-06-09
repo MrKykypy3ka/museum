@@ -93,7 +93,7 @@ class Data:
 
     def get_all_games(self, **kwargs):
         try:
-            request = """SELECT id_game, id_type, picture FROM Games"""
+            request = """SELECT id_game, id_type, text FROM Games"""
             self.data = self.cur.execute(request).fetchall()
         except sqlite3.Error as e:
             print(e)

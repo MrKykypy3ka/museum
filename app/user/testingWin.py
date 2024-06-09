@@ -91,14 +91,15 @@ class TestingWin(QWidget):
         self.answers_users[self.questions[self.current_task][0]] = []
 
     def next_task(self):
-        # if any([True if x.isCheked() else False for x in self.answers]) or not self.sender().text():
-        if self.accept.text() == ' Завершить':
-            self.show_results()
-        if self.current_task < len(self.questions) - 1:
-            self.current_task += 1
-            self.task_formation()
-            if self.current_task == len(self.questions) - 1:
-                self.accept.setText(' Завершить')
+        print(any([True if x.isChecked() else False for x in self.answers]))
+        if any([True if x.isChecked() else False for x in self.answers]) or self.answers_users == dict():
+            if self.accept.text() == ' Завершить':
+                self.show_results()
+            if self.current_task < len(self.questions) - 1:
+                self.current_task += 1
+                self.task_formation()
+                if self.current_task == len(self.questions) - 1:
+                    self.accept.setText(' Завершить')
 
     def save_answer(self):
         if self.sender().isChecked():
