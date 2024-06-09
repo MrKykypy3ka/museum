@@ -5,14 +5,18 @@ QWidget#transparent{
         border-image: url(resources/transparent_background.png);
 }
 
+QMessageBox, QMessageBox QPushButton, QWidget#games{
+        border-image: url();
+}
+
 QPushButton#main {
         border-radius: 0;
         border: 1px solid #E8C68D;
         color: #E8C68D;
         font-family: MontserratBolt;
-        font-size: 24pt;
+        font-size: 40pt;
         width: 9em;
-        height: 1em;
+        height: 1.5em;
         text-align: left;
         border-image: url();
         background-color: #70000E;
@@ -46,6 +50,16 @@ QLabel{
 
 QListWidget::item:selected {
         background : #70000e;
+        font-size: 24pt;
+}
+
+QListWidget, QCheckBox, QLineEdit {
+        font-size: 24pt;
+}
+
+QCheckBox::indicator {
+    width:  80px;
+    height: 80px;
 }
 
 QComboBox {
@@ -59,4 +73,5 @@ QComboBox QAbstractItemView {
         selection-background-color: #70000e;
         background-color: #E8C68D;
 }
+
 
