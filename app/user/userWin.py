@@ -14,7 +14,7 @@ class UserWin(QWidget):
         self.setCentralWidget(wid)
         self.tests_btn = QPushButton(' Викторины')
         self.games_btn = QPushButton(' Игры')
-        self.back = QPushButton('← Назад')
+        self.back = QPushButton(' ← Назад')
         self.back.setIconSize(QSize(40, 40))
         self.user_win_vl = QVBoxLayout()
         hl1 = QHBoxLayout()

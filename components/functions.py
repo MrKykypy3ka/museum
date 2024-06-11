@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QPropertyAnimation, QRect, QTimer, QByteArray
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtGui import QPixmap, QImage, QIcon
+from PyQt5.uic.Compiler.qtproxies import QtGui
 
 
 def button_animation(btn, win, f):
@@ -18,13 +19,11 @@ def button_animation(btn, win, f):
     QTimer.singleShot(100, f)
 
 
-def load_image(image):
+def load_image_pixmap(image):
     return QPixmap.fromImage(QImage.fromData(QByteArray(image)))
 
 
-def counting_correct_answers(sample, user):
-    result = 0
-    for question in user:
-        if sample[question] == user[question]:
-            result += 1
-    return result
+def load_image_icon(image):
+    pixmap = QPixmap()
+    pixmap.loadFromData(image)
+    return pixmap

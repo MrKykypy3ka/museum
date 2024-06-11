@@ -57,5 +57,9 @@ class ListEventWin(QWidget):
         list_w.addItems([x[2] for x in self.filter])
 
     def show_activity_win(self):
+        print(self.filter)
         if self.list_activity.currentRow() != -1:
-            button_animation(btn=self.start_activity_btn, win=self, f=self.init_testing_ui)
+            if self.activity == 'викторину':
+                button_animation(btn=self.start_activity_btn, win=self, f=self.init_testing_ui)
+            else:
+                button_animation(btn=self.start_activity_btn, win=self, f=self.init_play_changeling_ui)

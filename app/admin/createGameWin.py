@@ -1,14 +1,12 @@
 from functools import partial
-
 from components.functions import button_animation
 from components.new_widgets import ScaledPixmapLabel
-
 from PyQt5.QtWidgets import (QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLineEdit, QMainWindow, QComboBox,
-                             QGraphicsDropShadowEffect, QFileDialog, QMessageBox, QLabel)
+                             QGraphicsDropShadowEffect, QFileDialog, QMessageBox)
 from PyQt5.QtGui import QIcon, QColor, QPixmap, QImage
 from PyQt5.QtCore import pyqtSignal, Qt
 from database.scripts.db import Data
-
+import pickle
 
 class CreateGameWin(QMainWindow):
     close_signal = pyqtSignal(bool)
@@ -122,10 +120,14 @@ class CreateGameWin(QMainWindow):
             self.images_list.append(image)
             images_l2.addWidget(image)
         self.add_image_btn = QPushButton('Добавить изображение')
+        self.add_image_btn.setObjectName('create')
+        button_l = QHBoxLayout()
         main_l.addWidget(self.title)
         main_l.addLayout(images_l1)
         main_l.addLayout(images_l2)
-        main_l.addWidget(self.add_image_btn)
+        button_l.addWidget(self.add_image_btn, 2)
+        button_l.addStretch(5)
+        main_l.addLayout(button_l)
         self.changeling_win.setLayout(main_l)
 
         self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=self.load_image))
@@ -151,11 +153,12 @@ class CreateGameWin(QMainWindow):
         self.title.setStyleSheet('''''')
         if not self.title.text():
             self.title.setStyleSheet('''border: 1px solid red;''')
-        elif not self.image.pixmap():
-            self.image.setStyleSheet('''border: 1px solid red;''')
+        elif not self.images_list:
+            for picture in self.images_list:
+                picture.setStyleSheet('''border: 1px solid red;''')
         else:
             id_type = [x[0] for x in self.db.data if x[1] == self.list_games.currentText()][0]
             text = self.title.text()
             print(id_type, text)
-            self.db.add_game(id_type=id_type, text=text, picture=self.byte_image)
+            self.db.add_game(id_type=id_type, text=text, picture=pickle.dumps(self.byte_images))
             self.close()

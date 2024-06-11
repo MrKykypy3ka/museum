@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox
 from PyQt5.QtGui import QIcon, QColor
 from PyQt5.QtCore import Qt
 from components.new_widgets import ScaledPixmapLabel, OutlineLabel
-from components.functions import load_image, button_animation
+from components.functions import load_image_pixmap, button_animation
 
 
 class TestingWin(QWidget):
@@ -46,15 +46,15 @@ class TestingWin(QWidget):
         main_l.addLayout(h_l4)
         main_l.addStretch()
         self.wid.setLayout(main_l)
-        self.test_formation(self.list_tests.currentItem().text())
+        self.test_formation(self.list_activity.currentItem().text())
 
         self.accept.setObjectName('main')
         self.wid.setObjectName('transparent')
         self.accept.clicked.connect(partial(button_animation, btn=self.accept, win=self, f=self.next_task))
         self.accept.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5,
-                                                                   xOffset=4,
-                                                                   yOffset=4,
-                                                                   color=QColor(0, 0, 0)))
+                                                                xOffset=4,
+                                                                yOffset=4,
+                                                                color=QColor(0, 0, 0)))
 
     def add_answer(self, text_test):
         correct = QCheckBox(text_test)
@@ -87,11 +87,10 @@ class TestingWin(QWidget):
         for answer in self.tasks[self.questions[self.current_task][0]]:
             self.add_answer(answer[0])
         if self.questions[self.current_task][1]:
-            self.image.setPixmap(load_image(self.questions[self.current_task][1]))
+            self.image.setPixmap(load_image_pixmap(self.questions[self.current_task][1]))
         self.answers_users[self.questions[self.current_task][0]] = []
 
     def next_task(self):
-        print(any([True if x.isChecked() else False for x in self.answers]))
         if any([True if x.isChecked() else False for x in self.answers]) or self.answers_users == dict():
             if self.accept.text() == ' Завершить':
                 self.show_results()
@@ -118,6 +117,3 @@ class TestingWin(QWidget):
         self.result_win.show()
         if self.result_win.exec_():
             self.init_user_ui()
-
-
-

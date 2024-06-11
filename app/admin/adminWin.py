@@ -12,11 +12,11 @@ from components.functions import button_animation
 class AdminWin(QWidget):
     def init_admin_ui(self):
         self.setWindowTitle('Краеведческий музей Благовещенска')
-        self.create_test = QPushButton('+ Создать викторину')
-        self.list_test = QPushButton('# Список викторин')
-        self.create_game = QPushButton('+ Создать игру')
-        self.list_game = QPushButton('# Список игр')
-        self.back = QPushButton('← Назад')
+        self.create_test = QPushButton(' + Создать викторину')
+        self.list_test = QPushButton(' # Список викторин')
+        self.create_game = QPushButton(' + Создать игру')
+        self.list_game = QPushButton(' # Список игр')
+        self.back = QPushButton(' ← Назад')
         self.back.setIcon(QIcon('resources/back.png'))
         self.back.setIconSize(QSize(40, 40))
         wid = QWidget()

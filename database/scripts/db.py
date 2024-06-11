@@ -106,3 +106,11 @@ class Data:
             self.data = self.cur.execute(request, (kwargs['id_test'],)).fetchall()
         except sqlite3.Error as e:
             print(e)
+
+    def get_game(self, **kwargs):
+        try:
+            request = """SELECT text, picture FROM Games
+                         WHERE id_game == ?"""
+            self.data = self.cur.execute(request, (kwargs['id_game'],)).fetchall()
+        except sqlite3.Error as e:
+            print(e)
