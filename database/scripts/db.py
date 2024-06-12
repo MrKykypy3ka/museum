@@ -93,7 +93,8 @@ class Data:
 
     def get_all_games(self, **kwargs):
         try:
-            request = """SELECT id_game, id_type, text FROM Games"""
+            request = """SELECT Games.id_game, Types_event.name, Games.text FROM Games
+                         INNER JOIN Types_event ON Games.id_type = Types_event.id_type"""
             self.data = self.cur.execute(request).fetchall()
         except sqlite3.Error as e:
             print(e)

@@ -14,9 +14,11 @@ class CreateGameWin(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.db = Data('database/Museum.db')
+        self.changeling_win = QWidget()
+        self.puzzle_win = QWidget()
+        self.puzzle_win.setObjectName('games')
+        self.changeling_win.setObjectName('games')
         self.db.get_games_types()
-        self.puzzle_ui()
-        self.changeling_ui()
         self.init_ui()
         self.edit_configurator()
         self.tasks = list()
@@ -59,9 +61,11 @@ class CreateGameWin(QMainWindow):
 
     def edit_configurator(self):
         if self.list_games.currentText() == 'Пятнашки':
+            self.puzzle_ui()
             self.puzzle_win.show()
             self.changeling_win.hide()
         elif self.list_games.currentText() == 'Перевёртыши':
+            self.changeling_ui()
             self.puzzle_win.hide()
             self.changeling_win.show()
         else:
@@ -69,20 +73,21 @@ class CreateGameWin(QMainWindow):
             self.changeling_win.hide()
 
     def puzzle_ui(self):
-        self.puzzle_win = QWidget()
         main_l = QVBoxLayout()
         self.title = QLineEdit()
         self.title.setPlaceholderText('Введите название игры')
-        self.image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
-        self.image.setStyleSheet('border: 1px solid black;')
-        self.image.setScaledContents(False)
-        self.image.setFixedSize(200, 200)
+        self.images_list = []
+        image = ScaledPixmapLabel(alignment=Qt.AlignCenter)
+        image.setStyleSheet('border: 1px solid black;')
+        image.setScaledContents(False)
+        image.setFixedSize(200, 200)
+        self.images_list.append(image)
         self.add_image_btn = QPushButton('Добавить изображение')
         h_l1 = QHBoxLayout()
         h_l2 = QHBoxLayout()
         main_l.addStretch()
         main_l.addWidget(self.title)
-        h_l1.addWidget(self.image, 2)
+        h_l1.addWidget(image, 2)
         h_l1.addStretch(5)
         main_l.addLayout(h_l1, 3)
         h_l2.addWidget(self.add_image_btn, 2)
@@ -90,14 +95,12 @@ class CreateGameWin(QMainWindow):
         main_l.addLayout(h_l2)
         main_l.addStretch()
         self.puzzle_win.setLayout(main_l)
-
         self.add_image_btn.setObjectName('create')
-        self.puzzle_win.setObjectName('games')
-        self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=self.load_image))
+
+        self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=partial(self.load_image, count_image=1)))
         self.add_image_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
 
     def changeling_ui(self):
-        self.changeling_win = QWidget()
         self.changeling_win.setObjectName('games')
         main_l = QVBoxLayout()
         self.title = QLineEdit()
@@ -130,10 +133,10 @@ class CreateGameWin(QMainWindow):
         main_l.addLayout(button_l)
         self.changeling_win.setLayout(main_l)
 
-        self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=self.load_image))
+        self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=partial(self.load_image, count_image=8)))
         self.add_image_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
 
-    def load_image(self, count_image=8):
+    def load_image(self, count_image):
         fnames, _ = QFileDialog.getOpenFileNames(self, 'Open files', '/home', "Images (*.png *.jpeg *.jpg)")
         if len(fnames) == count_image:
             self.pixmaps = []
@@ -144,10 +147,10 @@ class CreateGameWin(QMainWindow):
                 with open(fname, 'rb') as file:
                     byte_image = file.read()
                     self.byte_images.append(byte_image)
-            for i in range(8):
+            for i in range(count_image):
                 self.images_list[i].setPixmap(self.pixmaps[i])
         else:
-            QMessageBox.warning(self, 'Недостаточно изображений', 'Необходимо выбрать 8 картинок', buttons=QMessageBox.Ok)
+            QMessageBox.warning(self, 'Недостаточно изображений', f'Необходимо выбрать {count_image} картинок', buttons=QMessageBox.Ok)
 
     def game_formation(self):
         self.title.setStyleSheet('''''')
@@ -159,6 +162,5 @@ class CreateGameWin(QMainWindow):
         else:
             id_type = [x[0] for x in self.db.data if x[1] == self.list_games.currentText()][0]
             text = self.title.text()
-            print(id_type, text)
             self.db.add_game(id_type=id_type, text=text, picture=pickle.dumps(self.byte_images))
             self.close()

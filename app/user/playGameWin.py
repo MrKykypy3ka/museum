@@ -1,25 +1,17 @@
 from functools import partial
 from random import shuffle
-from time import sleep
-
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox, QCheckBox, QPushButton, \
-    QGraphicsDropShadowEffect, QMessageBox, QTimeEdit
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGroupBox, QPushButton, QGraphicsDropShadowEffect, QMessageBox
 from PyQt5.QtGui import QIcon, QColor
-from PyQt5.QtCore import Qt, QTimer
-from components.new_widgets import ScaledPixmapLabel, OutlineLabel
-from components.functions import load_image_pixmap, button_animation, load_image_icon
+from PyQt5.QtCore import QTimer
+from components.new_widgets import OutlineLabel
+from components.functions import load_image_pixmap, button_animation, load_image_icon, cut_picture
 import pickle
 
 
 class PlayGameWin(QWidget):
 
-    def init_play_puzzle_ui(self):
-        self.puzzle_win = QWidget()
-        self.setCentralWidget(self.puzzle_win)
-        main_l = QVBoxLayout()
-        self.puzzle_win.setLayout(main_l)
-
-    def init_play_changeling_ui(self):
+    def init_play_ui(self):
+        self.pieces = list()
         self.one_picture = None
         self.two_picture = None
         self.score = 0
@@ -45,7 +37,7 @@ class PlayGameWin(QWidget):
                 button = QPushButton()
                 button.index = 4 * i + j + 1
                 button.setObjectName('game')
-                button.clicked.connect(self.check_picture)
+                button.clicked.connect(self.click_picture)
                 pictures_layouts[i].addWidget(button)
                 pictures_layouts[i].addStretch()
                 self.pictures_list.append(button)
@@ -77,9 +69,8 @@ class PlayGameWin(QWidget):
             if self.sender().picture:
                 if self.one_picture is None:
                     self.one_picture = self.sender()
-                elif self.two_picture is None:
+                elif self.one_picture != self.sender() and self.two_picture is None:
                     self.two_picture = self.sender()
-
         if self.one_picture and self.two_picture and self.mseconds - self.start > 120:
             self.one_picture.setIcon(QIcon())
             self.two_picture.setIcon(QIcon())
@@ -98,12 +89,44 @@ class PlayGameWin(QWidget):
             self.timer.stop()
             self.show_game_results()
 
+    def move_picture(self):
+        if self.one_picture is None:
+            self.one_picture = self.sender()
+        elif self.two_picture is None:
+            self.two_picture = self.sender()
+            self.one_picture.picture, self.two_picture.picture = self.two_picture.picture, self.one_picture.picture
+
+            self.one_picture.setIcon(QIcon(load_image_icon(self.one_picture.picture[1])))
+            self.one_picture.setIconSize(self.one_picture.size())
+
+            self.two_picture.setIcon(QIcon(load_image_icon(self.two_picture.picture[1])))
+            self.two_picture.setIconSize(self.two_picture.size())
+
+            self.one_picture = None
+            self.two_picture = None
+            self.check_complete_puzzle()
 
     def game_formation(self, text_game):
         self.setWindowTitle(f'Краеведческий музей Благовещенска: Тест - {text_game}')
         self.db.get_game(id_game=[x[0] for x in self.filter if text_game == x[2]][0])
         self.title.setText(self.db.data[0][0])
         self.pictures = pickle.loads(self.db.data[0][1])
+        print([x[1] for x in self.filter if self.list_activity.currentItem().text() == x[2]][0])
+        self.type_event = [x[1] for x in self.filter if self.list_activity.currentItem().text() == x[2]][0]
+        if self.type_event == 'Перевёртыши':
+            self.changeling_formation()
+        elif self.type_event == 'Пятнашки':
+            self.puzzle_formation()
+
+    def puzzle_formation(self):
+        self.pictures = cut_picture(self.pictures[0])
+        shuffle(self.pictures)
+        for button in self.pictures_list:
+            button.picture = self.pictures[button.index - 1]
+            button.setIcon(QIcon(load_image_icon(button.picture[1])))
+            button.setIconSize(button.size())
+
+    def changeling_formation(self):
         self.pictures *= 2
         shuffle(self.pictures)
         for button in self.pictures_list:
@@ -111,13 +134,14 @@ class PlayGameWin(QWidget):
 
     def showTime(self):
         self.mseconds += 1
-        if self.mseconds % 1000 == 0:
+        if self.mseconds % 500 == 0:
             self.seconds += 1
             if self.seconds % 60 == 0:
                 self.seconds = 0
                 self.minutes += 1
         self.time_lbl.setText(f'0{self.minutes}:{self.seconds}:{self.mseconds%1000}')
-        self.check_picture()
+        if self.type_event == 'Перевёртыши':
+            self.check_picture()
 
     def show_game_results(self):
         self.result_win = QMessageBox()
@@ -125,3 +149,17 @@ class PlayGameWin(QWidget):
         self.result_win.show()
         if self.result_win.exec_():
             self.init_user_ui()
+
+    def click_picture(self):
+        if self.type_event == 'Перевёртыши':
+            self.check_picture()
+        elif self.type_event == 'Пятнашки':
+            self.move_picture()
+
+    def check_complete_puzzle(self):
+        for i in range(len(self.pictures)):
+            if i + 1 != self.pictures_list[i].picture[0]:
+                print(i, self.pictures_list[i].picture[0])
+                return
+        self.timer.stop()
+        self.show_game_results()

@@ -62,4 +62,4 @@ class ListEventWin(QWidget):
             if self.activity == 'викторину':
                 button_animation(btn=self.start_activity_btn, win=self, f=self.init_testing_ui)
             else:
-                button_animation(btn=self.start_activity_btn, win=self, f=self.init_play_changeling_ui)
+                button_animation(btn=self.start_activity_btn, win=self, f=self.init_play_ui)
