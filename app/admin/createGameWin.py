@@ -36,12 +36,13 @@ class CreateGameWin(QMainWindow):
         self.main_l = QVBoxLayout()
         self.main_l.addStretch()
         self.main_l.addWidget(self.list_games)
-
+        self.back = QPushButton(' ← Назад')
 
         self.list_games.currentTextChanged.connect(self.edit_configurator)
         self.accept_btn = QPushButton('Создать игру')
 
         h_l3 = QHBoxLayout()
+        h_l3.addWidget(self.back, 2)
         h_l3.addStretch(5)
         h_l3.addWidget(self.accept_btn, 2)
 
@@ -52,6 +53,9 @@ class CreateGameWin(QMainWindow):
                                                                     xOffset=4,
                                                                     yOffset=4,
                                                                     color=QColor(0, 0, 0)))
+        self.back.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+        self.back.setObjectName('create')
+        self.back.clicked.connect(partial(button_animation, btn=self.back, win=self, f=self.close))
         self.main_l.addWidget(self.puzzle_win)
         self.main_l.addWidget(self.changeling_win)
         self.main_l.addStretch()
@@ -90,6 +94,7 @@ class CreateGameWin(QMainWindow):
         h_l1.addWidget(image, 2)
         h_l1.addStretch(5)
         main_l.addLayout(h_l1, 3)
+
         h_l2.addWidget(self.add_image_btn, 2)
         h_l2.addStretch(5)
         main_l.addLayout(h_l2)
@@ -99,6 +104,7 @@ class CreateGameWin(QMainWindow):
 
         self.add_image_btn.clicked.connect(partial(button_animation, btn=self.add_image_btn, win=self, f=partial(self.load_image, count_image=1)))
         self.add_image_btn.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=5, xOffset=4, yOffset=4, color=QColor(0, 0, 0)))
+
 
     def changeling_ui(self):
         self.changeling_win.setObjectName('games')
@@ -164,3 +170,7 @@ class CreateGameWin(QMainWindow):
             text = self.title.text()
             self.db.add_game(id_type=id_type, text=text, picture=pickle.dumps(self.byte_images))
             self.close()
+
+    def closeEvent(self, event):
+        self.close_signal.emit(True)
+        event.accept_btn()
