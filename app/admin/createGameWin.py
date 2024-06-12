@@ -173,4 +173,3 @@ class CreateGameWin(QMainWindow):
 
     def closeEvent(self, event):
         self.close_signal.emit(True)
-        event.accept_btn()

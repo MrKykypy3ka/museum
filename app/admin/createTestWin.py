@@ -95,7 +95,7 @@ class CreateTestWin(QMainWindow):
 
     def closeEvent(self, event):
         self.close_signal.emit(True)
-        event.accept_btn()
+
 
     def set_style(self):
         self.add_answer_btn.setObjectName('create')
