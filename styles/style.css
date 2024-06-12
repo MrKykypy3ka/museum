@@ -100,7 +100,13 @@ OutlineLabel {
 QPushButton#game {
         border-image: url();
         background-color: rgba(112, 0, 14, 100);
-        height: 210px;
-        width: 210px;
+        height: 190px;
+        width: 190px;
+}
 
+QPushButton#gameover {
+        border-image: url();
+        background-color: rgba(60, 60, 60, 100);
+        height: 190px;
+        width: 190px;
 }
